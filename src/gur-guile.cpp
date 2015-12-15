@@ -23,57 +23,73 @@
 static SCM gg_letters(SCM args)
 {
 	const char* const str = scm_to_utf8_stringn(args, NULL);
+	SCM g_str = scm_from_utf8_string(gur::letters(str));
 
-	return scm_from_utf8_string(gur::letters(str));
+	free(const_cast<char*>(str));
+	return g_str;
 }
 
 static SCM gg_accents(SCM args)
 {
 	const char* const str = scm_to_utf8_stringn(args, NULL);
+	SCM g_str = scm_from_utf8_string(gur::accents(str));
 
-	return scm_from_utf8_string(gur::accents(str));
+	free(const_cast<char*>(str));
+	return g_str;
 }
 
 static SCM gg_puncs(SCM args)
 {
 	const char* const str = scm_to_utf8_stringn(args, NULL);
+	SCM g_str = scm_from_utf8_string(gur::puncs(str));
 
-	return scm_from_utf8_string(gur::puncs(str));
+	free(const_cast<char*>(str));
+	return g_str;
 }
 
 static SCM gg_digits(SCM args)
 {
 	const char* const str = scm_to_utf8_stringn(args, NULL);
+	SCM g_str = scm_from_utf8_string(gur::digits(str));
 
-	return scm_from_utf8_string(gur::digits(str));
+	free(const_cast<char*>(str));
+	return g_str;
 }
 
 static SCM gg_symbols(SCM args)
 {
 	const char* const str = scm_to_utf8_stringn(args, NULL);
+	SCM g_str = scm_from_utf8_string(gur::symbols(str));
 
-	return scm_from_utf8_string(gur::symbols(str));
+	free(const_cast<char*>(str));
+	return g_str;
 }
 
 static SCM gg_comp(SCM args)
 {
 	const char* const str = scm_to_utf8_stringn(args, NULL);
+	SCM g_str = scm_from_utf8_string(gur::comp(str));
 
-	return scm_from_utf8_string(gur::comp(str));
+	free(const_cast<char*>(str));
+	return g_str;
 }
 
 static SCM gg_clobber(SCM args)
 {
 	const char* const str = scm_to_utf8_stringn(args, NULL);
+	SCM g_str = scm_from_utf8_string(gur::clobber(str));
 
-	return scm_from_utf8_string(gur::clobber(str));
+	free(const_cast<char*>(str));
+	return g_str;
 }
 
 static SCM gg_unclobber(SCM args)
 {
 	const char* const str = scm_to_utf8_stringn(args, NULL);
+	SCM g_str = scm_from_utf8_string(gur::unclobber(str));
 
-	return scm_from_utf8_string(gur::unclobber(str));
+	free(const_cast<char*>(str));
+	return g_str;
 }
 
 static void init_gur_guile(void *unused)
