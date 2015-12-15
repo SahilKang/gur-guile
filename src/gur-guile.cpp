@@ -21,6 +21,16 @@
 #include <gur.hpp>
 
 template<typename T>
+static SCM get_func(const SCM &args, const T &func)
+{
+	const char* const str = scm_to_utf8_stringn(args, NULL);
+	SCM g_str = scm_from_utf8_string(func(str));
+
+	free(const_cast<char*>(str));
+	return g_str;
+}
+
+template<typename T>
 static SCM is_type(const SCM &args, const T &func)
 {
 	const char* const str = scm_to_utf8_stringn(args, NULL);
@@ -41,74 +51,50 @@ static SCM is_type(const SCM &args, const T &func)
 
 static SCM gg_letters(SCM args)
 {
-	const char* const str = scm_to_utf8_stringn(args, NULL);
-	SCM g_str = scm_from_utf8_string(gur::letters(str));
-
-	free(const_cast<char*>(str));
-	return g_str;
+	return get_func(args,
+		(const char* (*)(const char* const&))&gur::letters);
 }
 
 static SCM gg_accents(SCM args)
 {
-	const char* const str = scm_to_utf8_stringn(args, NULL);
-	SCM g_str = scm_from_utf8_string(gur::accents(str));
-
-	free(const_cast<char*>(str));
-	return g_str;
+	return get_func(args,
+		(const char* (*)(const char* const&))&gur::accents);
 }
 
 static SCM gg_puncs(SCM args)
 {
-	const char* const str = scm_to_utf8_stringn(args, NULL);
-	SCM g_str = scm_from_utf8_string(gur::puncs(str));
-
-	free(const_cast<char*>(str));
-	return g_str;
+	return get_func(args,
+		(const char* (*)(const char* const&))&gur::puncs);
 }
 
 static SCM gg_digits(SCM args)
 {
-	const char* const str = scm_to_utf8_stringn(args, NULL);
-	SCM g_str = scm_from_utf8_string(gur::digits(str));
-
-	free(const_cast<char*>(str));
-	return g_str;
+	return get_func(args,
+		(const char* (*)(const char* const&))&gur::digits);
 }
 
 static SCM gg_symbols(SCM args)
 {
-	const char* const str = scm_to_utf8_stringn(args, NULL);
-	SCM g_str = scm_from_utf8_string(gur::symbols(str));
-
-	free(const_cast<char*>(str));
-	return g_str;
+	return get_func(args,
+		(const char* (*)(const char* const&))&gur::symbols);
 }
 
 static SCM gg_comp(SCM args)
 {
-	const char* const str = scm_to_utf8_stringn(args, NULL);
-	SCM g_str = scm_from_utf8_string(gur::comp(str));
-
-	free(const_cast<char*>(str));
-	return g_str;
+	return get_func(args,
+		(const char* (*)(const char* const&))&gur::comp);
 }
 
 static SCM gg_clobber(SCM args)
 {
-	const char* const str = scm_to_utf8_stringn(args, NULL);
-	SCM g_str = scm_from_utf8_string(gur::clobber(str));
-
-	free(const_cast<char*>(str));
-	return g_str;
+	return get_func(args,
+		(const char* (*)(const char* const&))&gur::clobber);
 }
 
 static SCM gg_unclobber(SCM args)
 {
-	const char* const str = scm_to_utf8_stringn(args, NULL);
-	SCM g_str = scm_from_utf8_string(gur::unclobber(str));
-
-	free(const_cast<char*>(str));
-	return g_str;
+	return get_func(args,
+		(const char* (*)(const char* const&))&gur::unclobber);
 }
 
 static SCM gg_is_letter(SCM args)
