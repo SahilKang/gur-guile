@@ -123,6 +123,34 @@ static SCM gg_is_symbol(SCM args)
 	return is_type(args, (bool (*)(const char* const&))&gur::is_symbol);
 }
 
+static SCM gg_sort(SCM args)
+{
+	const std::size_t size = scm_to_size_t(scm_length(args));
+
+	std::vector<std::string> unsorted;
+	for (std::size_t i = 0; i != size; ++i)
+	{
+		const char* const str = scm_to_utf8_stringn(
+			scm_list_ref(args, scm_from_size_t(i)), NULL);
+		unsorted.push_back(std::string(str));
+
+		free(const_cast<char*>(str));
+	}
+
+	std::vector<std::string> sorted = gur::sort(unsorted);
+
+	SCM list = scm_list_n(SCM_UNDEFINED);
+	for (auto &str : sorted)
+	{
+		list = scm_append(scm_list_2(
+			list,
+			scm_list_1(scm_from_utf8_string(str.c_str()))
+			));
+	}
+
+	return list;
+}
+
 static void init_gur_guile(void *unused)
 {
 	scm_c_define_gsubr("letters", 1, 0, 0, (scm_t_subr)&gg_letters);
@@ -138,6 +166,7 @@ static void init_gur_guile(void *unused)
 	scm_c_define_gsubr("is-punc", 1, 0, 0, (scm_t_subr)&gg_is_punc);
 	scm_c_define_gsubr("is-digit", 1, 0, 0, (scm_t_subr)&gg_is_digit);
 	scm_c_define_gsubr("is-symbol", 1, 0, 0, (scm_t_subr)&gg_is_symbol);
+	scm_c_define_gsubr("gur-sort", 1, 0, 0, (scm_t_subr)&gg_sort);
 
 	scm_c_define("gur-a1", scm_from_utf8_string(gur::A1));
 	scm_c_define("gur-a2", scm_from_utf8_string(gur::A2));
@@ -242,6 +271,7 @@ static void init_gur_guile(void *unused)
 	scm_c_export("comp", "clobber", "unclobber", NULL);
 	scm_c_export("is-letter", "is-accent", "is-punc", "is-digit",
 		"is-symbol", NULL);
+	scm_c_export("gur-sort", NULL);
 	scm_c_export(	"gur-a1", "gur-a2", "gur-a3", "gur-a4", "gur-a5",
 			"gur-b1", "gur-b2", "gur-b3", "gur-b4", "gur-b5",
 			"gur-c1", "gur-c2", "gur-c3", "gur-c4", "gur-c5",
