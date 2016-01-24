@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2015 Sahil Kang <sahil.kang@asilaycomputing.com>
+ * Copyright (C) 2015, 2016 Sahil Singh Kang <sahil.kang@asilaycomputing.com>
  *
  * This file is part of gur-guile.
  *
@@ -20,6 +20,8 @@
 #include <libguile.h>
 #include <gur.hpp>
 #include <gurmukhi.hpp>
+#include <map>
+#include <utility>
 
 template<typename T>
 static SCM get_func(const SCM &args, const T &func)
@@ -137,7 +139,17 @@ static SCM gg_sort(SCM args)
 		free(const_cast<char*>(str));
 	}
 
-	std::vector<std::string> sorted = gur::sort(unsorted);
+	std::multimap<gur::String, std::string> pairs;
+	for (auto &s : unsorted)
+	{
+		pairs.insert(std::make_pair(gur::String(s), s));
+	}
+
+	std::vector<std::string> sorted;
+	for (auto &pair : pairs)
+	{
+		sorted.push_back(pair.second);
+	}
 
 	SCM list = scm_list_n(SCM_UNDEFINED);
 	for (auto &str : sorted)
