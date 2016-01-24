@@ -4,17 +4,17 @@ Guile extension for libgur
 ```Scheme
 (use-modules (gur-guile))
 
-(define hello (string-append gur-a4 gur-e1 gur-h4 " " gur-a4 gurj2 gur-h5 " " gur-a2 gur-b1 gur-h3 gur-g3))
-  >"ਸਤਿ ਸ੍ੀ ਅਕਾਲ"
+(define hello (gur-read 'a4 'e1 'h4 " " 'a4 'j2 'g2 'h5 " " 'a2 'b1 'h3 'g3))
+  >"ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ"
 
-(define world (string-append gur-e3 gur-i1 gur-e5 gur-h5 gur-a2 gur-h3))
+(define world (gur-read 'e3 'i1 'e5 'h5 'a2 'h3))
   >"ਦੁਨੀਅਾ"
 
 (define hello-world (string-append hello " " world gur-q1))
-  >"ਸਤਿ ਸ੍ੀ ਅਕਾਲ ਦੁਨੀਅਾ।"
+  >"ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਦੁਨੀਅਾ।"
 
 (letters hello-world)
-  >"ਸਤਸਅਕਲਦਨਅ"
+  >"ਸਤਸਰਅਕਲਦਨਅ"
 
 (string->list (accents hello-world))
   >("ਿ", "ੀ", "੍", "ਾ", "ੁ", "ੀ", "ਾ")
