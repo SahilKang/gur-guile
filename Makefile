@@ -2,15 +2,12 @@ SRCDIR = ./src
 OBJDIR = ./obj
 OUTDIR = ./bin
 
-LIBGUR_INC =# ../libgur/inc
-LIBGUR_LIBDIR =# ../libgur/bin
-
 SRCS = $(wildcard $(SRCDIR)/*.cpp $(SRCDIR)/**/*.cpp)
 
 CXX = g++
-CXXFLAGS = `guile-config compile` -I$(LIBGUR_INC) -std=c++14 -g
+CXXFLAGS = `guile-config compile` -std=c++14 -g
 
-LDFLAGS = `guile-config link` -L$(LIBGUR_LIBDIR) -lgur
+LDFLAGS = `guile-config link` -lgur
 
 all: gur-guile.so
 
